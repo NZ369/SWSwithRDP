@@ -1,31 +1,31 @@
 # Simple Web Server (SWS) with Reliable Datagram Protocol (RDP) Transceiver
-# SoR Server
+## SoR Server
 
 #### Creation of a simple web server (SWS) framework following the HTTP protocol to transfer files through reliable datagram protocol (RDP) implemented via UDP.
 
 #### Server side transfers a file requested by the client through a customly created RDP connection.  The file requested will be transferred correctly and rapidly regardless of internet delay or loss.  Error control, flow control, and fast retransmission are implemented.  
 
 #### Packet format:
-RDP-COMMAND
-RDP-Header: Value
-…
-RDP-Header: Value
-HTTP-COMMAND
-HTTP-Header: Value
-…
-HTTP-Header: Value
-HTTP-PAYLOAD
+RDP-COMMAND. 
+RDP-Header: Value. 
+…..
+RDP-Header: Value. 
+HTTP-COMMAND. 
+HTTP-Header: Value. 
+…. 
+HTTP-Header: Value. 
+HTTP-PAYLOAD. 
 
 #### To establish the RDP connection and send the HTTP request: 
-“
-SYN|DAT|ACK
-Sequence: 0
-Length: 48
-Acknowledgment: -1
-Window: 4096
-GET /sws.py HTTP/1.0
-Connection: keep-alive
-“
+“  
+SYN|DAT|ACK. 
+Sequence: 0. 
+Length: 48. 
+Acknowledgment: -1. 
+Window: 4096. 
+GET /sws.py HTTP/1.0. 
+Connection: keep-alive. 
+“  
 
 SoR is bidirectional with data flows between the SoR client and server for request-response applications, but unlike the TCP socket, SoR has the flexibility to establish the RDP connection and send the HTTP request in one packet. If the RDP-PAYLOAD is longer than what SoR can accommodate, RST is triggered to reset the connection, and the user can rerun the SoR client with a smaller RDP-PAYLOAD size.  
 
